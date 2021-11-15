@@ -1,0 +1,4 @@
+S -> CODE | CODE NEWLINE S | NEWLINE CODE
+CODE -> 
+
+NEWLINE -> '\n'
