@@ -19,8 +19,7 @@ def isVarNameValid(varName):
     for i in range(0, 10):
         numerical.append(str(i))
 
-    # DFA terdiri dari state p0, empty, dan p1, dengan empty adalah dead state
-
+    # DFA terdiri dari state p0, empty, dan p1, dengan empty adalah dead state 
     dfa = { # DFA dalam bentuk dictionary dengan value dictionary
         'p0': {'_': 'p1'}, # start state
         'empty': {'_': 'empty'}, # dead state
