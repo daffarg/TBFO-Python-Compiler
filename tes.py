@@ -1,3 +1,2 @@
-y = 5
-y %= 2
-print(y)
+a = ["asi", 2]
+print(a)
