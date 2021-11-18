@@ -1,5 +1,4 @@
 from copy import deepcopy
-import re
 import string
 
 def readCFGFile(filepath):
@@ -8,7 +7,7 @@ def readCFGFile(filepath):
 	f = open(filepath, 'r')
 	lines = [line.split('->') for line in f.readlines()]
 	for line in lines:
-		if line[0] != "\n":
+		if line[0] not in "\n" and line[0][0] not in "#":
 			var = line[0].replace(" ","")
 			production = [raw.split() for raw in line[1].split('|')]
 			key = list(cfg.keys())
@@ -23,7 +22,7 @@ def readCFGFile(filepath):
 def isVar(x):
 # Mengembalikan true jika x adalah Variabel
 	for char in x:
-		if char not in (string.ascii_uppercase):
+		if char not in (string.ascii_uppercase + '_' + string.digits):
 			return False
 	return True
 
@@ -43,8 +42,31 @@ def removeUnitProduction(cfg):
 					flag = True
 	return(cfg)
 
+def CFGtoCNF(cfg):
+	cnf = {}
+	# Mencari simbol terminal apa saja yang ada di cfg
+	i = 1
+	terminal = []
+	for var in cfg:
+		productions = cfg[var]
+		for production in productions:
+			if len(production) == 1 and production not in terminal:
+				terminal.append(production)
+				cnf.update({f'T{i}' :[production]})
+				i += 1
+	
+	# Biarkan aturan produksi yang sudah dalam bentuk normal Chomsky
+	# for var in cfg:
+	# 	productions = cfg[var]
+	# 	for production in productions:
+	# 		if len(production) == 1 and not(isVar(production[0])):
+	# 			productions.remove(production)
+				
+	print(cnf)
+	return
+
 filepath = input()
 # print(readCFGFile(filepath))
-print((removeUnitProduction(readCFGFile(filepath))))
+# print((removeUnitProduction(readCFGFile(filepath))))
 
-# print(removerUselessProduction(removeUnitProduction(readCFGFile(filepath))))
+CFGtoCNF((removeUnitProduction(readCFGFile(filepath))))
