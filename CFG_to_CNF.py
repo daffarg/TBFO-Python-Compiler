@@ -42,6 +42,11 @@ def removeUnitProduction(cfg):
 					flag = True
 	return(cfg)
 
+def get_key(val,cnf):
+    for key, value in cnf.items():
+         if val == value:
+             return key
+
 def CFGtoCNF(cfg):
 	cnf = {}
 	# Mencari simbol terminal apa saja yang ada di cfg
@@ -50,23 +55,77 @@ def CFGtoCNF(cfg):
 	for var in cfg:
 		productions = cfg[var]
 		for production in productions:
-			if len(production) == 1 and production not in terminal:
-				terminal.append(production)
-				cnf.update({f'T{i}' :[production]})
-				i += 1
+			for symbol in production:
+				if not(isVar(symbol)):
+					if symbol not in terminal:
+						terminal.append(symbol)
+						cnf.update({f'T{i}' :[[symbol]]})
+						i += 1
 	
 	# Biarkan aturan produksi yang sudah dalam bentuk normal Chomsky
-	# for var in cfg:
-	# 	productions = cfg[var]
-	# 	for production in productions:
-	# 		if len(production) == 1 and not(isVar(production[0])):
-	# 			productions.remove(production)
-				
+	for var in cfg:
+		productions = cfg[var]
+		for production in productions:
+			if len(production) == 1 and not(isVar(production[0])):
+				productions.remove(production)
+				key = list(cnf.keys())
+				if var in key:
+					cnf[var].extend([production])
+				else:
+					cnf.update({var : [production]})
+			if len(production) == 2 and isVar(production[0]) and isVar(production[1]):
+				productions.remove(production)
+				key = list(cnf.keys())
+				if var in key:
+					cnf[var].extend([production])
+				else:
+					cnf.update({var : [production]})
+
+	# Lakukan penggantian aturan produksi yang ruas kanannya memuat simbol terminal dan panjang ruas kanan > 1
+	for var in cfg:
+		productions = cfg[var]
+		for i, production in enumerate(productions):
+			for j, symbol in enumerate(production):
+				if not (isVar(symbol)):
+					productions[i][j] = get_key([[symbol]],cnf)
+					cfg.update({var : productions})
+	
+	for var in cfg:
+		productions = cfg[var]
+		for production in productions:
+			if len(production) == 2 and isVar(production[0]) and isVar(production[1]):
+				productions.remove(production)
+				key = list(cnf.keys())
+				if var in key:
+					cnf[var].extend([production])
+				else:
+					cnf.update({var : [production]})	
+
+	# Lakukan penggantian aturan produksi yang ruas kanannya memuat > 2 simbol variabel
+	for var in cfg:
+		productions = cfg[var]
+		for production in productions:
+			# print(production)
+			idx = 1
+			while len(production) > 2:
+				cnf.update({f"{var}{idx}": [[production[0], production[1]]]})
+				production = production[1:]
+				production[0] = f"{var}{idx}"
+				# print(production)
+				idx += 1
+
+			key = list(cnf.keys())
+			if var in key:
+				cnf[var].extend([production])
+			else:
+				cnf.update({var : [production]})
+
+	# print(cfg)
 	print(cnf)
 	return
 
 filepath = input()
 # print(readCFGFile(filepath))
 # print((removeUnitProduction(readCFGFile(filepath))))
-
+# print()
 CFGtoCNF((removeUnitProduction(readCFGFile(filepath))))
