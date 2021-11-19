@@ -48,7 +48,6 @@ def get_key(val,cfg):
              return key
 
 def CFGtoCNF(cfg):
-	print(cfg)
 	temp = {}
 	# Mencari simbol terminal apa saja yang ada di cfg
 	terminal = []
@@ -107,5 +106,5 @@ filepath = input()
 # print(readCFGFile(filepath))
 # print((removeUnitProduction(readCFGFile(filepath))))
 # print()
-print(CFGtoCNF((removeUnitProduction(readCFGFile(filepath)))))
+# print(CFGtoCNF((removeUnitProduction(readCFGFile(filepath)))))
 
