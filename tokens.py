@@ -3,8 +3,8 @@ TAB = "\t"
 MARK = "\n"
 
 keyword = [
-            '==', '!=', '>', '<', '>=', '<=', '+', '-', '*', '/', '%', 'break',
-            'continue', 'pass', 'in', 'with', 'as', 'None', '(', ')', '[', ']', ':', ',', '.', 'True', 'False','int', 
+            '=', '==', '!=', '>', '<', '>=', '<=', '+', '-', '*', '/', '%', 'break', 'continue', 
+            'pass', 'in', 'with', 'as', 'None', '(', ')', '[', ']', ':', ',', '.', 'True', 'False','int', 
             'str', 'float', 'input', 'print', 'and', 'or', 'not', 'is', '=', '+=', '-=', '*=', '/=', '%=', 'if', 
             'elif', 'else', 'while', 'for', 'def', 'return', 'import', 'from', 'raise', 'with'
           ]
@@ -30,7 +30,7 @@ def readPythonFile(filepath):
                     isInteger = string.isdigit() or (string[1:].isdigit() and (string[0] == '-' or string[0] == '+'))
                     if isString or isInteger:
                         break
-                if string not in keyword:
+                if string not in keyword: # jika tdk ada di dalam keyword, maka string atau integer
                     if (string[0] == '"' and string[-1] == '"' and len(string) > 1) or (string[0] == "'" and string[-1] == "'" and len(string) > 1):
                         string = 'string'
                     elif string.isdigit() or (string[1:].isdigit() and (string[0] == '-' or string[0] == '+')):

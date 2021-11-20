@@ -11,13 +11,6 @@ def getRuleProduction(val,cnf):
     return keys
 
 def concatRule(first, second):
-    """
-    creates set of string from concatenation of each character in first
-    to each character in second
-    :param first: first set of characters
-    :param second: second set of characters
-    :return: set of desired values
-    """
     res = set()
     if first == set() or second == set():
         return set()
@@ -56,12 +49,12 @@ def cykAlgorithm(tokens,cnf):
 
     return cyk
 
-filepath = input()
-cnf = CFGtoCNF((removeUnitProduction(readCFGFile(filepath))))
-tokens = ['b', 'a', 'a', 'b', 'a']
-cyk = cykAlgorithm(tokens,cnf)
-lastCYK = cyk[len(cyk)-1][0]
-if 'S' in lastCYK:
-    print("accept")
-else:
-    print('reject')
+# filepath = input()
+# cnf = CFGtoCNF((removeUnitProduction(readCFGFile(filepath))))
+# tokens = ['b', 'a', 'a', 'b', 'a']
+# cyk = cykAlgorithm(tokens,cnf)
+# lastCYK = cyk[len(cyk)-1][0]
+# if 'S' in lastCYK:
+#     print("accept")
+# else:
+#     print('reject')
