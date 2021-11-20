@@ -1,2 +1,4 @@
-a = "5.6"
-print(float(a))
+a = "'"
+print(a[0])
+print(a[-1])
+print(len(a))

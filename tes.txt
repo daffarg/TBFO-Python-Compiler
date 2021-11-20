@@ -1,2 +1,2 @@
-if x > 2 :
-    return "test"
+if (x > 5):
+    return "test",5
