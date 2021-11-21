@@ -69,7 +69,7 @@ def CFGtoCNF(cfg):
 						t += 1
 	cfg.update(temp)
 	temp.clear()
-	
+
 	# Biarkan aturan produksi yang sudah dalam bentuk normal Chomsky
 
 	# Lakukan penggantian aturan produksi yang ruas kanannya memuat simbol terminal dan panjang ruas kanan > 1
@@ -80,9 +80,13 @@ def CFGtoCNF(cfg):
 				if not (isVar(symbol)) and len(production) > 1:
 					v = get_key([[symbol]],cfg)
 					if not(v):
-						temp.update({f'T{t}' : [[symbol]]})
-						t += 1
-					productions[i][j] = get_key([[symbol]],temp) 
+						v =  get_key([[symbol]],temp)
+						if not(v):
+							temp.update({f'T{t}' : [[symbol]]})
+							t += 1
+						productions[i][j] = get_key([[symbol]],temp)
+					else:
+						productions[i][j] = v 
 					cfg.update({var : productions})
 	cfg.update(temp)
 	temp.clear()	
@@ -90,8 +94,8 @@ def CFGtoCNF(cfg):
 	# Lakukan penggantian aturan produksi yang ruas kanannya memuat > 2 simbol variabel
 	for var in cfg:
 		productions = cfg[var]
+		idx = 1
 		for i, production in enumerate(productions):
-			idx = 1
 			while len(production) > 2:
 				temp.update({f"{var}{idx}": [[production[0], production[1]]]})
 				production = production[1:]
@@ -100,11 +104,12 @@ def CFGtoCNF(cfg):
 			productions[i] = production
 			cfg.update({var : productions})
 
+	cfg.update(temp)
 	return cfg
 
-filepath = input()
+# filepath = input()
 # print(readCFGFile(filepath))
 # print((removeUnitProduction(readCFGFile(filepath))))
 # print()
 # print(CFGtoCNF((removeUnitProduction(readCFGFile(filepath)))))
-
+# CFGtoCNF((removeUnitProduction(readCFGFile(filepath))))

@@ -1,5 +1,4 @@
-from typing import DefaultDict
-from CFG_to_CNF import *
+# from CFG_to_CNF import *
 
 def getRuleProduction(val,cnf):
     keys = []
@@ -11,12 +10,12 @@ def getRuleProduction(val,cnf):
     return keys
 
 def concatRule(first, second):
-    res = set()
+    res = []
     if first == set() or second == set():
         return set()
     for f in first:
         for s in second:
-            res.add(f+s)
+            res.append([f,s])
     return res
     
 
@@ -50,9 +49,10 @@ def cykAlgorithm(tokens,cnf):
     return cyk
 
 # filepath = input()
-# cnf = CFGtoCNF((removeUnitProduction(readCFGFile(filepath))))
-# tokens = ['b', 'a', 'a', 'b', 'a']
+# cnf = readCFGFile(filepath)
+# tokens = ['variable', '=', 'string']
 # cyk = cykAlgorithm(tokens,cnf)
+# print(cyk)
 # lastCYK = cyk[len(cyk)-1][0]
 # if 'S' in lastCYK:
 #     print("accept")
