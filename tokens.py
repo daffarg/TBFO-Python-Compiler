@@ -12,7 +12,7 @@ keyword = [ # array of keyword sesuai terminal pada cfg (kecuali string, integer
           ]
 keywordOpAssign = [ # array untuk operator, assignment, dan yg tdk termasuk dalam array keyword
                     '=', '=', '!', '>', '<', '+', '-', '*', '/', '%',
-                    '(', ')', '[', ']', ':', ',', '.', '=', '\n'
+                    '(', ')', '[', ']', ':', ',', '.', '=',
                   ]
 
 def readPythonFile(filepath):
@@ -42,17 +42,19 @@ def readPythonFile(filepath):
                         idx += 1
                        # if string in keywordOpAssign and idx <= len(line) - 1 and line[idx] in keywordOpAssign:
                          #   continue
-                        if idx <= len(line) - 1 and (line[idx] in keywordOpAssign or (string in keywordOpAssign and line[idx] not in keywordOpAssign)):
+                        if idx <= len(line) - 1 and (line[idx] in keywordOpAssign or line[idx] == '\n' or (string in keywordOpAssign and line[idx] not in keywordOpAssign)):
                             break
                     if string not in keywordOpAssign and string not in keyword: # code yang dibaca adalah string, integer, atau variabel
-                        if (string[0] == '"' and string[-1] == '"' and len(string) > 1) or (string[0] == "'" and string[-1] == "'" and len(string) > 1):
+                        if string == '\n':
+                            string = 'newline'
+                        elif (string[0] == '"' and string[-1] == '"' and len(string) > 1) or (string[0] == "'" and string[-1] == "'" and len(string) > 1):
                             string = 'string'
                         elif string.isdigit() or (string[1:].isdigit() and (string[0] == '-' or string[0] == '+')):
                             string = 'integer'
                         else:
                             varValid = isVarNameValid(string) # pengecekan nama variabel oleh DFA
                             if varValid:
-                                print(string)
+                                #print(string)
                                 string = 'variable'
                     arrayOfCodes.append(string)
                     if idx >= len(line) or not varValid:
@@ -65,7 +67,7 @@ def readPythonFile(filepath):
     f.close()
     return arrayOfCodes, varValid, ln
 
-a,b,c = readPythonFile("tes.txt")
-print(a)
-print(b)
-print(c)
+# a,b,c = readPythonFile("tes.txt")
+# print(a)
+# print(b)
+# print(c)

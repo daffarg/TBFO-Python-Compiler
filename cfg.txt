@@ -24,7 +24,7 @@ RIGHT_SB -> ]
 COLON -> :
 COMMA -> ,
 PERIOD -> .
-NEWLINE -> \n
+NEWLINE -> newline
 
 TYPE -> string | INTEGER | FLOAT
 BOOLEAN_OPERAND -> VARIABLE | TYPE | ARITH | True | False | NONE

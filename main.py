@@ -12,15 +12,17 @@ if not varValid:
 else: # cek dengan CYK
     cfg = readCFGFile('cfg.txt')
     cnf = CFGtoCNF((removeUnitProduction(cfg)))
-    for ln, code in enumerate(codes):
-        cyk = cykAlgorithm(code,cnf)
-        lastCYK = cyk[len(cyk)-1][0]
-        if 'S' not in (lastCYK):
-            print('Syntax Error')
-            print(f'ln : {ln+1}')
-            break
-    if 'S' in lastCYK:
+    #ln = 1
+   # for code in codes:
+    cyk = cykAlgorithm(codes,cnf)
+    lastCYK = cyk[len(cyk)-1][0]
+    if 'S' not in (lastCYK):
+        print('Syntax Error')
+            #print(f'ln : {ln+1}')
+           # break
+    else:
         print("Accepted")
+    #print(cnf)
 
     # print(cnf)
     # print()
