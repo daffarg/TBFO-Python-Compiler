@@ -1,4 +1,2 @@
-a = "'"
-print(a[0])
-print(a[-1])
-print(len(a))
+a = "5a"
+print(a[1].isalpha())
