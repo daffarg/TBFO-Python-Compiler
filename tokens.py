@@ -8,11 +8,11 @@ MARK = "\n"
 keyword = [ # array of keyword sesuai terminal pada cfg (kecuali string, integer, dan variable)
             'break', 'continue', 'pass', 'in', 'with', 'as', 'None', 'True', 'False','int', 
             'str', 'float', 'input', 'print', 'and', 'or', 'not', 'is', 'if', 'elif', 'else', 
-            'while', 'for', 'def', 'return', 'import', 'from', 'raise', 'with'
+            'while', 'for', 'def', 'return', 'import', 'from', 'raise', 'with', 
           ]
 keywordOpAssign = [ # array untuk operator, assignment, dan yg tdk termasuk dalam array keyword
                     '=', '=', '!', '>', '<', '+', '-', '*', '/', '%',
-                    '(', ')', '[', ']', ':', ',', '.', '=', 
+                    '(', ')', '[', ']', ':', ',', '.', '=', '\n'
                   ]
 
 def readPythonFile(filepath):
@@ -37,7 +37,7 @@ def readPythonFile(filepath):
             else:   
                 while True:
                     string = ""
-                    while idx <= len(line) - 1 and line[idx] != BLANK and line[idx] != TAB and line[idx] != MARK:
+                    while idx <= len(line) - 1 and line[idx] != BLANK and line[idx] != TAB:
                         string += line[idx]
                         idx += 1
                        # if string in keywordOpAssign and idx <= len(line) - 1 and line[idx] in keywordOpAssign:
@@ -52,20 +52,20 @@ def readPythonFile(filepath):
                         else:
                             varValid = isVarNameValid(string) # pengecekan nama variabel oleh DFA
                             if varValid:
+                                print(string)
                                 string = 'variable'
-                    arrayOfStrings.append(string)
-                    if idx >= len(line) or line[idx] == MARK or not varValid:
+                    arrayOfCodes.append(string)
+                    if idx >= len(line) or not varValid:
                         break
                     while line[idx] == BLANK or line[idx] == TAB:
                         idx += 1
             if not varValid: # jika ada variabel tdk valid, line selanjutnya tdk perlu diperiksa lagi
                 break
-            arrayOfCodes.append(arrayOfStrings)
         ln += 1
     f.close()
     return arrayOfCodes, varValid, ln
 
-# a,b,c = readPythonFile("tes.txt")
-# print(a)
-# print(b)
-# print(c)
+a,b,c = readPythonFile("tes.txt")
+print(a)
+print(b)
+print(c)
