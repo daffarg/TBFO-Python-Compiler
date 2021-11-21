@@ -15,7 +15,8 @@ def concatRule(first, second):
         return set()
     for f in first:
         for s in second:
-            res.append([f,s])
+            if [f,s] not in res:
+                res.append([f,s])
     return res
     
 
@@ -37,11 +38,7 @@ def cykAlgorithm(tokens,cnf):
                 row = concatRule(cyk[k][j], cyk[i-k-1][j+k+1])
                 # print(row)
                 for ro in row:
-                    token = []
-                    for r in ro:
-                        token.append(r)
-                    # print(token)
-                    var = getRuleProduction(token,cnf)
+                    var = getRuleProduction(ro,cnf)
                     if var:
                         for v in var:
                             cyk[i][j].add(v)
