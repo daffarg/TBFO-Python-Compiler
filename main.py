@@ -6,9 +6,11 @@ from cyk import *
 # PROGRAM MAIN
 
 file = input("Your file (.py): ")
-codes, varValid, numOfLines = readPythonFile(file)
+codes, varValid, numOfLines, flag = readPythonFile(file)
 if not varValid:
-    print("Variable name not valid in line " + str(numOfLines))
+    print("SyntaxError: variable name not valid in line " + str(numOfLines))
+elif flag:
+    print("SyntaxError: EOF while scanning triple-quoted string literal")
 else: # cek dengan CYK
     cfg = readCFGFile('cfg.txt')
     cnf = CFGtoCNF((removeUnitProduction(cfg)))
@@ -26,7 +28,7 @@ else: # cek dengan CYK
 
     # print(cnf)
     # print()
-    # print(cyk)
+    print(cyk)
 
     # print(codes)    
     # print("Cek dengan CYK")

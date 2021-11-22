@@ -20,9 +20,9 @@ def readPythonFile(filepath):
     f = open(filepath,'r')
     lines  = f.readlines()
     arrayOfCodes = []
+    flagComment = False
     for line in lines:
         varValid = True
-        arrayOfStrings = []
         idx = 0
         uselessLine = True
 
@@ -40,23 +40,41 @@ def readPythonFile(filepath):
                     while idx <= len(line) - 1 and line[idx] != BLANK and line[idx] != TAB:
                         string += line[idx]
                         idx += 1
-                       # if string in keywordOpAssign and idx <= len(line) - 1 and line[idx] in keywordOpAssign:
-                         #   continue
+                        # if string[0] == "'": # masalahnya komennya multiple line
+                        #     if len(string) >= 3 and string == "'''":
+                        #         break 
+                        #     else:
+                        #         continue
+                        if string[0] == '#':
+                            while True:
+                                if idx > len(line) - 1 or line[idx] == '\n':
+                                    break
+                                else:
+                                    if idx <= len(line) - 1:
+                                            string += line[idx]
+                                            idx += 1
+                                            continue
                         if idx <= len(line) - 1 and (line[idx] in keywordOpAssign or line[idx] == '\n' or (string in keywordOpAssign and line[idx] not in keywordOpAssign)):
                             break
                     if string not in keywordOpAssign and string not in keyword: # code yang dibaca adalah string, integer, atau variabel
-                        if string == '\n':
+                        if string == "'''":
+                            flagComment = not flagComment
+                            string = "comment" # agar tidak masuk ke variabel
+                        elif string == '\n':
                             string = 'newline'
+                        elif string[0] == '#':
+                            string = 'comment'
                         elif (string[0] == '"' and string[-1] == '"' and len(string) > 1) or (string[0] == "'" and string[-1] == "'" and len(string) > 1):
+                            #print(string)
                             string = 'string'
                         elif string.isdigit() or (string[1:].isdigit() and (string[0] == '-' or string[0] == '+')):
                             string = 'integer'
                         else:
                             varValid = isVarNameValid(string) # pengecekan nama variabel oleh DFA
                             if varValid:
-                                #print(string)
                                 string = 'variable'
-                    arrayOfCodes.append(string)
+                    if not flagComment:
+                        arrayOfCodes.append(string)
                     if idx >= len(line) or not varValid:
                         break
                     while line[idx] == BLANK or line[idx] == TAB:
@@ -65,9 +83,10 @@ def readPythonFile(filepath):
                 break
         ln += 1
     f.close()
-    return arrayOfCodes, varValid, ln
+    return arrayOfCodes, varValid, ln, flagComment
 
-# a,b,c = readPythonFile("tes.txt")
+# a,b,c,d = readPythonFile("tes.py")
 # print(a)
 # print(b)
 # print(c)
+# print(d)

@@ -1,2 +1,1 @@
-string = '\\n'
-print(string == '\n')
+if 2: raise
