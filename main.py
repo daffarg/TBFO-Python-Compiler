@@ -28,7 +28,7 @@ else: # cek dengan CYK
 
     # print(cnf)
     # print()
-    print(cyk)
+    #print(cyk)
 
     # print(codes)    
     # print("Cek dengan CYK")
