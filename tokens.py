@@ -21,6 +21,7 @@ def readPythonFile(filepath):
     lines  = f.readlines()
     arrayOfCodes = []
     flagComment = False
+    eop = False
     for line in lines:
         varValid = True
         idx = 0
@@ -78,7 +79,13 @@ def readPythonFile(filepath):
                     if idx >= len(line) or not varValid:
                         break
                     while line[idx] == BLANK or line[idx] == TAB:
+                        if ln == len(lines):
+                            if idx == len(line)-1:
+                                eop = True
+                                break
                         idx += 1
+                    if eop:
+                        break
             if not varValid: # jika ada variabel tdk valid, line selanjutnya tdk perlu diperiksa lagi
                 break
         ln += 1
