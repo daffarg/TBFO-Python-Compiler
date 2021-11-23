@@ -5,10 +5,11 @@ BLANK = " "
 TAB = "\t"
 MARK = "\n"
 
-keyword = [ # array of keyword sesuai terminal pada cfg (kecuali string, integer, dan variable)
+keyword = [ # array of keyword sesuai simbol terminal pada cfg (kecuali string, integer, comment, dan variable)
             'break', 'continue', 'pass', 'in', 'with', 'as', 'None', 'True', 'False','int', 
             'str', 'float', 'input', 'print', 'and', 'or', 'not', 'is', 'if', 'elif', 'else', 
-            'while', 'for', 'def', 'return', 'import', 'from', 'raise', 'with', 
+            'while', 'for', 'def', 'return', 'import', 'from', 'raise', 'with', 'break', 'continue',
+            'range', 'in', 
           ]
 keywordOpAssign = [ # array untuk operator, assignment, dan yg tdk termasuk dalam array keyword
                     '=', '=', '!', '>', '<', '+', '-', '*', '/', '%',
@@ -46,6 +47,14 @@ def readPythonFile(filepath):
                         #         break 
                         #     else:
                         #         continue
+                        if string[0] == '"' or string[0] == "'":
+                            while True:
+                                if (string[0] == '"' and string[-1] == '"' and len(string) > 1) or (string[0] == "'" and string[-1] == "'" and len(string) > 1) or (len(string) >= 3 and string[:3] == "'''"):
+                                    break
+                                else:
+                                    string += line[idx]
+                                    idx += 1
+                                    continue
                         if string[0] == '#':
                             while True:
                                 if idx > len(line) - 1 or line[idx] == '\n':
@@ -92,8 +101,8 @@ def readPythonFile(filepath):
     f.close()
     return arrayOfCodes, varValid, ln, flagComment
 
-# a,b,c,d = readPythonFile("tes.py")
-# print(a)
+a,b,c,d = readPythonFile("tes.py")
+print(a)
 # print(b)
 # print(c)
 # print(d)
