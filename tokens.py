@@ -5,24 +5,23 @@ BLANK = " "
 TAB = "\t"
 MARK = "\n"
 
-keyword = [ # array of keyword sesuai simbol terminal pada cfg (kecuali string, integer, comment, dan variable)
+keyword = [ # array of keyword sesuai terminal pada cfg (kecuali string, integer, dan variable)
             'break', 'continue', 'pass', 'in', 'with', 'as', 'None', 'True', 'False','int', 
             'str', 'float', 'input', 'print', 'and', 'or', 'not', 'is', 'if', 'elif', 'else', 
-            'while', 'for', 'def', 'return', 'import', 'from', 'raise', 'with', 'break', 'continue',
-            'range', 'in', 
+            'while', 'for', 'def', 'return', 'import', 'from', 'raise', 'with', 
           ]
-keywordOpAssign = [ # array simbol terminal untuk operator, assignment, dan yg tdk termasuk dalam array keyword
-                    '=', '!', '>', '<', '+', '-', '*', '/', '%',
+keywordOpAssign = [ # array untuk operator, assignment, dan yg tdk termasuk dalam array keyword
+                    '=', '=', '!', '>', '<', '+', '-', '*', '/', '%',
                     '(', ')', '[', ']', ':', ',', '.', '=',
                   ]
 
 def readPythonFile(filepath):
-    # mencatat jumlah baris
+    ln = 1 # mencatat jumlah baris
     f = open(filepath,'r')
     lines  = f.readlines()
     arrayOfCodes = []
     flagComment = False
-    for ln, line in enumerate(lines):
+    for line in lines:
         varValid = True
         idx = 0
         uselessLine = True
@@ -78,16 +77,16 @@ def readPythonFile(filepath):
                         arrayOfCodes.append(string)
                     if idx >= len(line) or not varValid:
                         break
-                    if ln + 1 == len(lines):
-                        break
-                    else:
-                        while line[idx] == BLANK or line[idx] == TAB:
-                            idx += 1
+                    while line[idx] == BLANK or line[idx] == TAB:
+                        idx += 1
             if not varValid: # jika ada variabel tdk valid, line selanjutnya tdk perlu diperiksa lagi
                 break
+        ln += 1
     f.close()
-    ln += 1
     return arrayOfCodes, varValid, ln, flagComment
 
-a,b,c,d = readPythonFile("tes.py")
-print(c)
+# a,b,c,d = readPythonFile("tes.py")
+# print(a)
+# print(b)
+# print(c)
+# print(d)
