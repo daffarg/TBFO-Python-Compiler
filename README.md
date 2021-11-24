@@ -6,7 +6,7 @@ Implementasi CFG sebagai compiler untuk pengecekan kebenaran sintaks program Pyt
 
 **Note: tidak semua kata kunci dalam bahasa Python diimplementasikan dalam program ini**
 
-###### Anggota:
+### Anggota:
 1. 13520118 - Mohamad Daffa Argakoesoemah 
 2. 13520125 - Ikmal Alfaozi
 
