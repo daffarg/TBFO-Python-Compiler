@@ -1,12 +1,10 @@
 i = 0
 x = 0
-while i < 10:
-    x = 5
-    if True:
-        x = 2
-        if False:
-            continue
-        elif x > 5:
-            print(5)
-        else:
-            break
+
+
+if not((x == 5 or x != 2) or True and False or 3):
+    print(3)
+elif x > 5:
+    print(4)
+else:
+    print(2)
