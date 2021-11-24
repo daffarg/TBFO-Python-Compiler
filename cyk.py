@@ -44,14 +44,3 @@ def cykAlgorithm(tokens,cnf):
                             cyk[i][j].add(v)
 
     return cyk
-
-# filepath = input()
-# cnf = readCFGFile(filepath)
-# tokens = ['variable', '=', 'string']
-# cyk = cykAlgorithm(tokens,cnf)
-# print(cyk)
-# lastCYK = cyk[len(cyk)-1][0]
-# if 'S' in lastCYK:
-#     print("accept")
-# else:
-#     print('reject')

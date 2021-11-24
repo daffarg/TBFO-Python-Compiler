@@ -9,7 +9,7 @@ keyword = [ # array of keyword sesuai simbol terminal pada cfg (kecuali string, 
             'break', 'continue', 'pass', 'in', 'with', 'as', 'None', 'True', 'False','int', 
             'str', 'float', 'input', 'print', 'and', 'or', 'not', 'is', 'if', 'elif', 'else', 
             'while', 'for', 'def', 'return', 'import', 'from', 'raise', 'with', 'break', 'continue',
-            'range', 'in', 
+            'range', 'in', 'class',
           ]
 keywordOpAssign = [ # array untuk operator, assignment, dan yg tdk termasuk dalam array keyword
                     '=', '=', '!', '>', '<', '+', '-', '*', '/', '%',
@@ -42,11 +42,6 @@ def readPythonFile(filepath):
                     while idx <= len(line) - 1 and line[idx] != BLANK and line[idx] != TAB:
                         string += line[idx]
                         idx += 1
-                        # if string[0] == "'": # masalahnya komennya multiple line
-                        #     if len(string) >= 3 and string == "'''":
-                        #         break 
-                        #     else:
-                        #         continue
                         if string[0] == '"' or string[0] == "'":
                             while True:
                                 if (string[0] == '"' and string[-1] == '"' and len(string) > 1) or (string[0] == "'" and string[-1] == "'" and len(string) > 1) or (len(string) >= 3 and string[:3] == "'''"):
@@ -100,9 +95,3 @@ def readPythonFile(filepath):
         ln += 1
     f.close()
     return arrayOfCodes, varValid, ln, flagComment
-
-a,b,c,d = readPythonFile("tes.py")
-print(a)
-# print(b)
-# print(c)
-# print(d)

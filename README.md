@@ -4,9 +4,9 @@
 
 Implementasi CFG sebagai compiler untuk pengecekan kebenaran sintaks program Python dan DFA untuk pengecekan kebenaran nama variabel
 
-** Note: tidak semua kata kunci dalam bahasa Python diimplementasikan dalam program ini **
+**Note: tidak semua kata kunci dalam bahasa Python diimplementasikan dalam program ini**
 
-Anggota:
+###### Anggota:
 1. 13520118 - Mohamad Daffa Argakoesoemah 
 2. 13520125 - Ikmal Alfaozi
 

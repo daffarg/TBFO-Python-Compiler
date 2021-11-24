@@ -106,10 +106,3 @@ def CFGtoCNF(cfg):
 
 	cfg.update(temp)
 	return cfg
-
-# filepath = input()
-# print(readCFGFile(filepath))
-# print((removeUnitProduction(readCFGFile(filepath))))
-# print()
-# print(CFGtoCNF((removeUnitProduction(readCFGFile(filepath)))))
-# CFGtoCNF((removeUnitProduction(readCFGFile(filepath))))
